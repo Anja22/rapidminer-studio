@@ -22,10 +22,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.Format;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.time.temporal.TemporalAccessor;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -309,12 +312,14 @@ public class LicenseTools {
 		// store properties necessary to identify the license
 		licenseProperties.setProperty(getEditionKey(activeLicense), activeLicense.getProductEdition());
 		licenseProperties.setProperty(getPrecedenceKey(activeLicense), String.valueOf(activeLicense.getPrecedence()));
-		if (activeLicense.getExpirationDate() != null) {
-			String dateString = ISO_DATE_FORMATTER.format(activeLicense.getExpirationDate());
-			licenseProperties.setProperty(getExpirationDateKey(activeLicense), dateString);
-		} else {
+////		if (activeLicense.getExpirationDate() != null) {
+////			String dateString = ISO_DATE_FORMATTER.format( activeLicense.getExpirationDate());
+//			Format formatter = new SimpleDateFormat("yyyy-MM-dd");
+//			String dateString = formatter.format(activeLicense.getExpirationDate());
+//			licenseProperties.setProperty(getExpirationDateKey(activeLicense), dateString);
+////		} else {
 			licenseProperties.remove(getExpirationDateKey(activeLicense));
-		}
+//		}
 
 		// store properties
 		try (FileOutputStream out = new FileOutputStream(licensePropertiesFile)) {
